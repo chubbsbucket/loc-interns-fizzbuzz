@@ -26,11 +26,9 @@ function revOrder(str, divider) {
     return newstrn;
 }
 function fizzbuzz() {
+    const input = require('readline-sync');
 
-   const input = prompt("Please enter the rules you want to apply");
-
-
-    let dict = {
+    const dict = {
         3: (strn) => strn + "Fizz",
         5:(strn) => strn + "Buzz",
         7: (strn) => strn + "Bang",
@@ -39,11 +37,25 @@ function fizzbuzz() {
         17: (strn) => revOrder(strn, 4)
     };
 
+   console.log("Enter the rules you want to apply");
+   const rules = input.prompt("Enter the rules you want to apply");
+   const arr = rules.split(" ");
+   let rulesToApply = {};
+
+   for(const rule of arr){
+       rulesToApply[parseInt(rule)] = dict[rule];
+    }
+
+
+
     numbers = [3,5,7,13,17,11];
 
-    for(let i = 1; i <= 255; i++) {
+    for(let i = 1; i <= 663; i++) {
         let str = "";
         for(const num of numbers) {
+            if(!rulesToApply[num]) {
+                continue;
+            }
             if(i % num === 0) {
                 str = dict[num](str);
             }
